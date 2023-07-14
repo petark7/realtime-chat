@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const UserMessage = ({ sender }) => {
+const UserMessage = ({ sender, message }) => {
 	let position = 'start';
 	let color = '';
 
@@ -16,9 +16,14 @@ const UserMessage = ({ sender }) => {
 					<img src="https://cdn.pixabay.com/photo/2015/03/03/08/55/portrait-657116_1280.jpg" />
 				</div>
 			</div>
-			<div className={`chat-bubble ${color}`}>It was said that you would, destroy the Sith, not join them.</div>
+			<div className={`chat-bubble ${color} text-white`}>{message}</div>
 		</div>
 	);
+};
+
+UserMessage.propTypes = {
+	message: PropTypes.any,
+	sender: PropTypes.any
 };
 
 export default UserMessage;
