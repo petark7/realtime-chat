@@ -1,14 +1,29 @@
-import { getAuth, signOut } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { UserAuth } from './context/AuthContext';
-import Navbar from './components/Navbar';
 import Login from './pages/login';
 import ChatRoom from './pages/chat-room';
+import Navbar from './components/Navbar';
+import Loading from './components/Loading';
 import './App.css';
 
 const App = () => {
 	const { currentUser, setCurrentUser } = UserAuth();
-
+	const [isLoading, setIsLoading] = useState(false);
 	const auth = getAuth();
+
+	useEffect(() => {
+		setIsLoading(true);
+		onAuthStateChanged(auth, user => {
+			if (user) {
+				setCurrentUser(user);
+				setIsLoading(false);
+			}
+
+			setIsLoading(false);
+		});
+	}, []);
+
 	const handleLogout = () => {
 		signOut(auth).then(() => {
 			setCurrentUser(null);
@@ -20,8 +35,10 @@ const App = () => {
 	return (
 		<>
 			<Navbar handleLogout={handleLogout} showLogoutButton={Boolean(currentUser)} />
-			{currentUser ? <ChatRoom user={currentUser} />
-				: <Login setCurrentUser={setCurrentUser} />}
+			<Loading isLoading={isLoading}>
+				{currentUser ? <ChatRoom user={currentUser} />
+					: <Login setCurrentUser={setCurrentUser} />}
+			</Loading>
 		</>
 	);
 };
