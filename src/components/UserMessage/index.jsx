@@ -1,16 +1,11 @@
 import PropTypes from 'prop-types';
 
 const UserMessage = ({ sender, message }) => {
-	let position = 'start';
-	let color = '';
-
-	if (sender) {
-		position = 'end';
-		color = 'bg-blue-900';
-	}
+	const position = sender ? 'chat-end' : 'chat-start';
+	const color = sender ? 'bg-blue-900' : 'bg-gray-700';
 
 	return (
-		<div className={`chat chat-${position}`}>
+		<div className={`chat ${position}`}>
 			<div className="chat-image avatar">
 				<div className="w-10 rounded-full">
 					<img src="https://cdn.pixabay.com/photo/2015/03/03/08/55/portrait-657116_1280.jpg" />
