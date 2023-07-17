@@ -10,7 +10,7 @@ const SendMessage = () => {
 	};
 
 	return (
-		<div className="bg-gray-600 fixed bottom-0 w-full py-10 shadow-lg">
+		<div className="bg-gray-600 fixed bottom-0 w-full py-5 shadow-lg">
 			<form className="containerWrap flex">
 				<input ref={messageField} className="input w-full rounded-r-none bg-gray-200 text-black shadow-lg" type="text" />
 				<button

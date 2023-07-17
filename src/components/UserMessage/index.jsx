@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 
-const UserMessage = ({ sender, message }) => {
-	const position = sender ? 'chat-end' : 'chat-start';
+const UserMessage = ({ sender, message, image }) => {
+	const position = sender ? 'end' : 'start';
 	const color = sender ? 'bg-blue-900' : 'bg-gray-700';
 
 	return (
-		<div className={`chat ${position}`}>
+		<div className={`chat chat-${position}`}>
 			<div className="chat-image avatar">
 				<div className="w-10 rounded-full">
-					<img src="https://cdn.pixabay.com/photo/2015/03/03/08/55/portrait-657116_1280.jpg" />
+					<img src={image} />
 				</div>
 			</div>
 			<div className={`chat-bubble ${color} text-white`}>{message}</div>
@@ -17,6 +17,7 @@ const UserMessage = ({ sender, message }) => {
 };
 
 UserMessage.propTypes = {
+	image: PropTypes.any,
 	message: PropTypes.any,
 	sender: PropTypes.any
 };

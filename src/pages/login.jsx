@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { useState } from 'react';
+import { UserAuth } from '../context/AuthContext';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA1FHcDltkq8RaUUsMyUDPwaW_R4E0PT7I',
@@ -13,19 +13,20 @@ const firebaseConfig = {
 	measurementId: 'G-FVKC0FSE47'
 };
 
-const Login = ({ setUser }) => {
+const Login = () => {
 	const provider = new GoogleAuthProvider();
 	const app = initializeApp(firebaseConfig);
+	const { currentUser, setCurrentUser } = UserAuth();
 
+	console.log(currentUser);
 	const auth = getAuth();
 	const handleLogin = () => {
 		signInWithPopup(auth, provider)
 			.then(result => {
 				const user = result.user;
-
-				setUser(user);
+				// SetUser(user);
+				setCurrentUser(user);
 			// IdP data available using getAdditionalUserInfo(result)
-			// ...
 			}).catch(error => {
 			// Handle Errors here.
 				const errorMessage = error.message;

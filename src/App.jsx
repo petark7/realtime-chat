@@ -1,16 +1,26 @@
-import { useState } from 'react';
+import { getAuth, signOut } from 'firebase/auth';
 import Navbar from './components/Navbar';
 import Login from './pages/login';
 import ChatRoom from './pages/chat-room';
 import './App.css';
+import { UserAuth } from './context/AuthContext';
 
 const App = () => {
-	const [user, setUser] = useState(null);
+	const { currentUser, setCurrentUser } = UserAuth();
+
+	const auth = getAuth();
+	const handleLogout = () => {
+		signOut(auth).then(() => {
+			setCurrentUser(null);
+		}).catch(error => {
+			console.log(error);
+		});
+	};
 
 	return (
 		<>
-			<Navbar />
-			{user ? <ChatRoom user={user} /> : <Login setUser={setUser} user={user} />}
+			<Navbar handleLogout={handleLogout} showLogoutButton={Boolean(currentUser)} />
+			{currentUser ? <ChatRoom user={currentUser} /> : <Login />}
 		</>
 	);
 };
