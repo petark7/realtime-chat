@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import { getAuth } from 'firebase/auth';
+import { useRef, useState } from 'react';
 import UserMessage from '../UserMessage';
+import ScrollToBottom from '../ScrollToBottom';
 
 const ChatBox = ({ messages }) => {
 	const auth = getAuth();
 	const user = auth.currentUser;
+	const scrollToBottomRef = useRef(null);
+	const [isVisible, setIsVisible] = useState(true);
 
 	return (
 		<div className="containerWrap my-5	">
@@ -19,6 +23,8 @@ const ChatBox = ({ messages }) => {
 						/>
 					))}
 			</div>
+			<div ref={scrollToBottomRef} />
+			{isVisible && <ScrollToBottom scrollToBottomRef={scrollToBottomRef} setIsVisible={setIsVisible} />}
 		</div>
 	);
 };

@@ -1,8 +1,10 @@
+import { useRef } from 'react';
 import { collection, query, orderBy, limit, getFirestore } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChatBox from '../components/ChatBox';
 import SendMessage from '../components/SendMessage';
+import ScrollToBottom from '../components/ScrollToBottom';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA1FHcDltkq8RaUUsMyUDPwaW_R4E0PT7I',
@@ -21,6 +23,7 @@ const ChatRoom = () => {
 	const q = query(messagesRef, orderBy('createdAt'), limit(25));
 
 	const [messages] = useCollectionData(q, { idField: 'id' });
+	const scrollToBottomRef = useRef(null);
 
 	return (
 		<>
