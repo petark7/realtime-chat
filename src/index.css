@@ -5,3 +5,7 @@
 .containerWrap {
   @apply container mx-auto max-w-4xl px-4
 }
+
+.chat-box {
+  margin-bottom: 150px;
+}
