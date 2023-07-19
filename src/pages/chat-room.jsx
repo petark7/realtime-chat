@@ -4,16 +4,7 @@ import { initializeApp } from 'firebase/app';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChatBox from '../components/ChatBox';
 import SendMessage from '../components/SendMessage';
-
-const firebaseConfig = {
-	apiKey: 'AIzaSyA1FHcDltkq8RaUUsMyUDPwaW_R4E0PT7I',
-	authDomain: 'realtime-chat-92832.firebaseapp.com',
-	projectId: 'realtime-chat-92832',
-	storageBucket: 'realtime-chat-92832.appspot.com',
-	messagingSenderId: '348471459951',
-	appId: '1:348471459951:web:394fe0713508b46ac94d9a',
-	measurementId: 'G-FVKC0FSE47'
-};
+import { firebaseConfig } from '../firebaseConfig';
 
 const ChatRoom = () => {
 	const app = initializeApp(firebaseConfig);
@@ -24,13 +15,13 @@ const ChatRoom = () => {
 	const [messages] = useCollectionData(q, { idField: 'id' });
 	const scrollToBottomRef = useRef(null);
 
-	const scrollToBottom = behaviour => {
-		scrollToBottomRef.current.scrollIntoView({ behaviour });
+	const scrollToBottom = () => {
+		scrollToBottomRef.current.scrollIntoView();
 	};
 
 	return (
 		<>
-			<ChatBox scrollToBottomRef={scrollToBottomRef} messages={messages} />
+			<ChatBox scrollToBottom={scrollToBottom} scrollToBottomRef={scrollToBottomRef} messages={messages} />
 			<SendMessage scrollToBottom={scrollToBottom} />
 		</>
 	);

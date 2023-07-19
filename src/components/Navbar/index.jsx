@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const Navbar = ({ handleLogout, showLogoutButton }) => (
 	<div className=" navbar bg-base-200">
 		<div className="containerWrap">
@@ -18,5 +20,10 @@ const Navbar = ({ handleLogout, showLogoutButton }) => (
 		</div>
 	</div>
 );
+
+Navbar.propTypes = {
+	handleLogout: PropTypes.func,
+	showLogoutButton: PropTypes.bool
+};
 
 export default Navbar;
