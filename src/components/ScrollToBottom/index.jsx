@@ -9,11 +9,7 @@ const ScrollToBottom = ({ scrollToBottomRef, setIsVisible }) => {
 		if (scrollToBottomRef.current) {
 			const bottomInView = scrollToBottomRef.current.getBoundingClientRect().top <= window.innerHeight;
 
-			if (bottomInView) {
-				setIsVisible(false);
-			} else {
-				setIsVisible(true);
-			}
+			setIsVisible(!bottomInView);
 		}
 	};
 
