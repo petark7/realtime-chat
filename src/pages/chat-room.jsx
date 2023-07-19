@@ -4,7 +4,6 @@ import { initializeApp } from 'firebase/app';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import ChatBox from '../components/ChatBox';
 import SendMessage from '../components/SendMessage';
-import ScrollToBottom from '../components/ScrollToBottom';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyA1FHcDltkq8RaUUsMyUDPwaW_R4E0PT7I',
@@ -20,15 +19,19 @@ const ChatRoom = () => {
 	const app = initializeApp(firebaseConfig);
 	const db = getFirestore(app);
 	const messagesRef = collection(db, 'messages');
-	const q = query(messagesRef, orderBy('createdAt'), limit(25));
+	const q = query(messagesRef, orderBy('createdAt'), limit(100));
 
 	const [messages] = useCollectionData(q, { idField: 'id' });
 	const scrollToBottomRef = useRef(null);
 
+	const scrollToBottom = behaviour => {
+		scrollToBottomRef.current.scrollIntoView({ behaviour });
+	};
+
 	return (
 		<>
-			<ChatBox messages={messages} />
-			<SendMessage />
+			<ChatBox scrollToBottomRef={scrollToBottomRef} messages={messages} />
+			<SendMessage scrollToBottom={scrollToBottom} />
 		</>
 	);
 };

@@ -1,12 +1,13 @@
 import { useRef } from 'react';
 import { createMessage } from '../../utils/firebase';
 
-const SendMessage = () => {
+const SendMessage = ({ scrollToBottom }) => {
 	const messageField = useRef();
 	const handleSend = event => {
 		event.preventDefault();
 		createMessage(messageField.current.value);
 		messageField.current.value = '';
+		scrollToBottom('smooth');
 	};
 
 	return (

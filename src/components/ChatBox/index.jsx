@@ -4,10 +4,9 @@ import { useRef, useState } from 'react';
 import UserMessage from '../UserMessage';
 import ScrollToBottom from '../ScrollToBottom';
 
-const ChatBox = ({ messages }) => {
+const ChatBox = ({ messages, scrollToBottomRef }) => {
 	const auth = getAuth();
 	const user = auth.currentUser;
-	const scrollToBottomRef = useRef(null);
 	const [isVisible, setIsVisible] = useState(true);
 
 	return (
